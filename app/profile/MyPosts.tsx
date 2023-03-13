@@ -12,6 +12,20 @@ const fetchAuthPosts = async () => {
     return response.data;
 }
 
+
+type data = {
+    _id: string,
+    comments: [
+
+    ],
+    title: string,
+    userId: string,
+    user: {
+        image: string,
+        name: string
+    },
+}
+
 export default function MyPosts() {
 
 
@@ -24,15 +38,17 @@ export default function MyPosts() {
     if (error) return error
     if (isLoading) return 'Loading...'
 
-    console.log(data.data);
-
 
 
     return (
-        <div>
+        <>
             {/* {data?.data.map((item) => <EditPost avatar={item ?} />)}} */}
-            {data?.data?.map((post) => <EditPost comments={post.comments} key={post._id} avatar={post.user?.image} id={post._id} name={post.user?.name} title={post.title} />)}
+            <div className="mt-4">
+                {!data?.data.length ? 'No posts yet! 😣' :
+                    data?.data?.map((post: data) => <EditPost comments={post.comments} userId={post.userId} key={post._id} avatar={post.user?.image} id={post._id} name={post.user?.name} title={post.title} />)
+                }
+            </div>
 
-        </div>
+        </>
     )
 }

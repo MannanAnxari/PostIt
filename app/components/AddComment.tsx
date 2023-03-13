@@ -26,7 +26,7 @@ export default function AddComment({ id }: { id?: string }) {
                 console.log(data);
 
                 toast.success("Post has been made 🔥", { id: toastPostID })
-                // setTitle('');
+                setTitle('');
                 queryClient.invalidateQueries(["details-posts"]);
                 // setTimeout(() => {
                 //     toast.dismiss(toastPostID)
@@ -38,7 +38,7 @@ export default function AddComment({ id }: { id?: string }) {
 
     const handleComment = async (e: React.FormEvent) => {
         e.preventDefault();
-        toastPostID = toast.loading("Creating your post", { id: toastPostID })
+        // toastPostID = toast.loading("Creating your post", { id: toastPostID })
         // console.log(toastPostID);
         setIsDisabled(true);
         mutate({ title, postId: id })
@@ -52,7 +52,7 @@ export default function AddComment({ id }: { id?: string }) {
             </div>
             <div className="flex items-center justify-between gap-2">
                 <p className={`font-mono text-sm ${title.length > 300 ? 'text-red-700' : 'text-black'}`}>{`${title.length}/300`}</p>
-                <button className='text-sm bg-blue-700 text-white rounded-md py-2 px-6' type='submit' disabled={isDisabled}>Add Comment 🔥</button>
+                <button className="text-sm bg-blue-700 rounded-md disabled:opacity-25 text-white transition-all hover:bg-blue-500 px-6 py-2 active:bg-blue-800" type='submit' disabled={isDisabled}>Add Comment 🔥</button>
             </div>
         </form>
     )

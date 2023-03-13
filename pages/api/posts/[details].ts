@@ -16,7 +16,7 @@ const handler = async (req, res) => {
         try {
             // const user = await users.find({}).where('email').equals(session?.user?.email);
             // const data = await posts.find().where('userId').equals(user[0]?._id).populate({ path: 'user comments', select: ['name', 'image', 'message'] });
-            const data = await posts.find().where('_id').equals(req.query.details).populate({ path: 'user comments', select: ['name', 'image', 'message', 'userId'] });
+            const data = await posts.find().where('_id').equals(req.query.details).populate({ path: 'user comments', select: ['name', 'email', 'image', 'message', 'userId'] });
             // console.log(data?.comments);
 
             // let usrs = [];
@@ -26,7 +26,7 @@ const handler = async (req, res) => {
             //     usrs.push({ name: user.name, avatar: user.image, message: item.message })
             // })
 
-            var dta = await Comment.find().where('postId').equals(req.query.details).populate({ path: 'userId', select: ['name', 'image', 'createdAt'] })
+            var dta = await Comment.find().where('postId').equals(req.query.details).populate({ path: 'userId', select: ['name', 'email', 'image', 'createdAt'] })
 
 
             res.status(200).json({ success: true, data, comments: dta })

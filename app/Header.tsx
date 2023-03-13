@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 import Login from "./auth/Login";
 
-import { useSession, signOut, signIn } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 import Logged from "./auth/Logged";
 
 const Header = () => {

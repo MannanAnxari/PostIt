@@ -5,11 +5,15 @@ import { unstable_getServerSession } from "next-auth";
 import Comment from "../../../models/Comment";
 import { authOptions } from "../auth/[...nextauth]";
 
-
+type session = {
+    user: {
+        email: string
+    }
+}
 const handler = async (req, res) => {
 
     if (req.method === 'POST') {
-        const session = await unstable_getServerSession(req, res, authOptions);
+        const session: session = await unstable_getServerSession(req, res, authOptions);
 
         if (!session)
             return res.status(401).json({ success: false, message: 'Please signin to make a post!' });
@@ -18,11 +22,8 @@ const handler = async (req, res) => {
         const userDB = await users.find({}).where('email').equals(session?.user?.email);
         console.log(req.body);
 
-
-
         const { title, postId } = req.body.data;
         console.log(title, postId);
-
 
         if (title.length > 300)
             return res.status(403).json({ success: false, message: 'Please write a shorter comment!' });

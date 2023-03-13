@@ -5,13 +5,15 @@ import { unstable_getServerSession } from "next-auth";
 import Comment from "../../../models/Comment";
 import { authOptions } from "../auth/[...nextauth]";
 
-
+type session = {
+    user: {
+        email: string
+    }
+}
 const handler = async (req, res) => {
 
     if (req.method === 'POST') {
-        const session = await unstable_getServerSession(req, res, authOptions);
-
-
+        const session: session = await unstable_getServerSession(req, res, authOptions);
 
         if (!session)
             return res.status(401).json({ success: false, message: 'Please signin to make a post!' });
@@ -19,25 +21,6 @@ const handler = async (req, res) => {
         const { title } = req.body;
 
         const userDB = await users.find({}).where('email').equals(session?.user?.email);
-
-        // const result = new Comment({ message: title, userId: userDB[0]?._id, postId: '640ce997b3adb0f59a71ad2b' });
-        // result.save((err, result) => {
-        //     if (err) {
-        //         console.log(err);
-        //     }
-        //     else {
-        //         posts.findById('640ce997b3adb0f59a71ad2b', (err, post) => {
-        //             if (err) {
-        //                 console.log(err);
-        //             }
-        //             else {
-        //                 post.comments.push(result);
-        //                 post.save();
-        //             }
-        //         })
-        //         console.log("post: ", result);
-        //     }
-        // });
 
         if (title.length > 300)
             return res.status(403).json({ success: false, message: 'Please write a shorter post!' });
