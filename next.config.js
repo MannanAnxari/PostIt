@@ -3,6 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   experimental: {
     appDir: true,
+    esmExternals: true
   },
   images: {
     domains: ['lh3.googleusercontent.com'],
