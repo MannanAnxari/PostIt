@@ -7,7 +7,7 @@ import { toast } from 'react-hot-toast';
 import Toggle from './Toggle';
 import { motion } from "framer-motion"
 
-export default function EditPost({ avatar, name, title, comments, id, userId }) {
+export default function EditPost({ avatar, name, title, comments, id, userId, likes }) {
 
     const [toggle, setToggle] = useState(false);
     let deleteToastId: string;

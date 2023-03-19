@@ -1,6 +1,7 @@
 const { default: connectDB } = require("/middleware/mongoose");
 const { default: posts } = require("/models/Posts");
 const { default: users } = require("/models/User");
+const { default: likes } = require("/models/Like");
 const { default: comment } = require("/models/Comment");
 
 const handler = async (req, res) => {
@@ -10,7 +11,9 @@ const handler = async (req, res) => {
         //  fetch post 
         try {
 
-            const data = await posts.find().sort({ createdAt: -1 }).populate({ path: 'user comments', select: ['name', 'userId', 'image', 'email', 'message'] })
+            const data = await posts.find().sort({ createdAt: -1 }).populate({ path: 'user comments likes', select: ['name', 'userId', 'postUserEmail', 'image', 'email', 'message', 'isLike', 'likePostId', 'likeUserId'] })
+
+            // console.log(data);
 
             res.status(200).json({ success: true, data })
 

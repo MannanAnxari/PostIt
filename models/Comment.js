@@ -1,4 +1,7 @@
-const mongoose = require('mongoose');
+import { mongoose } from "mongoose"
+
+// const mongoose = require('mongoose');
+
 
 const CommentsSchema = new mongoose.Schema({
     message: { type: String, required: true },

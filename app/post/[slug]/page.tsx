@@ -48,7 +48,7 @@ export default function PostDetail(url: URL) {
 
     return (
         <div>
-            <Posts comments={data?.data[0]?.comments} key={data?.data[0]?._id} createdAt={data?.data[0]?.createdAt} userId={data?.data[0]?.user?.email} myId={user?.data?.user?.email} avatar={data?.data[0]?.user?.image} id={data?.data[0]?._id} name={data?.data[0]?.user?.name} postTitle={data?.data[0]?.title} />
+            <Posts comments={data?.data[0]?.comments} key={data?.data[0]?._id} likes={data?.data[0]?.likes} createdAt={data?.data[0]?.createdAt} userId={data?.data[0]?.user?.email} myId={user?.data?.user?.email} avatar={data?.data[0]?.user?.image} id={data?.data[0]?._id} name={data?.data[0]?.user?.name} postTitle={data?.data[0]?.title} />
             <motion.div
                 animate={{ opacity: 1, scale: 1 }}
                 initial={{ opacity: 0, scale: 0.8 }}

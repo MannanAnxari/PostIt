@@ -6,20 +6,26 @@ import { motion } from "framer-motion"
 import { AiFillHeart } from 'react-icons/ai';
 import axios, { AxiosError } from 'axios';
 import { toast } from 'react-hot-toast';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import { useSession } from "next-auth/react";
 
 
+type data = {
+    success: Boolean,
+}
 
-const Posts = ({ avatar, name, postTitle, id, comments, userId, myId, createdAt }) => {
+const Posts = ({ avatar, name, postTitle, id, comments, userId, myId, createdAt, likes }) => {
 
     // console.log(userId, myId);
-
+    const [likesCount, setLikesCount] = useState(likes);
     const [isDisabled, setIsDisabled] = useState(false);
     let toastPostID: string
     const today = new Date()
+    const user = useSession();
 
-    const queryClient = useQueryClient();
+
+
     const { mutate } = useMutation(
         async (data: { postId: string }) => axios.post('/api/posts/likePost', { data }),
         {
@@ -30,29 +36,43 @@ const Posts = ({ avatar, name, postTitle, id, comments, userId, myId, createdAt 
                 }
                 setIsDisabled(false);
             },
-            onSuccess: (data) => {
-
-                toast.success("Post has been made 🔥", { id: toastPostID })
-                // setTitle('');
-                queryClient.invalidateQueries(["details-posts"]);
-                // setTimeout(() => {
-                //     toast.dismiss(toastPostID)
-                // }, 1000);
-                setIsDisabled(false);
+            onSuccess: (res) => {
+                if (res.data.success) {
+                    if (res?.data.isLike === 1) {
+                        setLikesCount([...likesCount, { email: user?.data?.user?.email }]);
+                    }
+                    else {
+                        let liks = likesCount.filter(function (obj) {
+                            return obj.email !== myId;
+                        });
+                        setLikesCount(liks);
+                    }
+                }
+                // toast.success("Post has been made 🔥", { id: toastPostID })
             }
         }
     )
 
 
-    const handleLike = async (id: string) => {
-        // toastPostID = toast.loading("like post", { id: toastPostID })
-        // console.log(toastPostID); 
 
-        setIsDisabled(true);
+    // useEffect(() => {
+    //     return () => {
+    //         likes.map((item) => {
+    //             console.log(item);
+    //                 setLikesCount({ userId: item.postUserEmail, like: likesCount.like + 1 });
+    //             // console.log(item.isLike);
+    //         });
+    //     }
+    // }, [])
+
+
+
+    const handleLike = async (id: string) => {
         mutate({ postId: id })
     }
 
     const postDate = new Date(createdAt).toLocaleString("en-us");
+
     return (
         <motion.div animate={{ opacity: 1, scale: 1 }}
             initial={{ opacity: 0, scale: 0.8 }}
@@ -69,8 +89,8 @@ const Posts = ({ avatar, name, postTitle, id, comments, userId, myId, createdAt 
                 <p className="break-all">{postTitle}</p>
             </div>
             <div className='flex gap-2 cursor-pointer items-center'>
-                <button className="text-center" onClick={() => handleLike(id)}>
-                    <AiFillHeart />
+                <button className="text-center flex gap-2 items-center" onClick={() => handleLike(id)}>
+                    <AiFillHeart className={`${likesCount.find(o => o.email === myId) && 'text-red-600'}`} /> {likesCount.length}
                 </button>
                 <Link href={`/post/${id}`}>
                     <p className='text-sm font-bold text-gray-600 transition-all hover:bg-blue-700 px-6 py-2 rounded-md hover:text-white active:bg-blue-800'>

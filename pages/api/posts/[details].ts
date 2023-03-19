@@ -4,19 +4,20 @@ const { default: users } = require("/models/User");
 import { unstable_getServerSession } from "next-auth";
 import Comment from "../../../models/Comment";
 import { authOptions } from "../auth/[...nextauth]";
+// import { connectDB } from "./../../../middleware/mongoose";
+// import { posts } from "./../../../models/Posts";
+// import { users } from "./../../../models/User";
 
 
 const handler = async (req, res) => {
 
     if (req.method === 'GET') {
 
-
-
         // get auth users post
         try {
             // const user = await users.find({}).where('email').equals(session?.user?.email);
             // const data = await posts.find().where('userId').equals(user[0]?._id).populate({ path: 'user comments', select: ['name', 'image', 'message'] });
-            const data = await posts.find().where('_id').equals(req.query.details).populate({ path: 'user comments', select: ['name', 'email', 'image', 'message', 'userId'] });
+            const data = await posts.find().where('_id').equals(req.query.details).populate({ path: 'user comments likes', select: ['name', 'email', 'image', 'message', 'userId', 'isLike', 'likePostId', 'likeUserId'] });
             // console.log(data?.comments);
 
             // let usrs = [];

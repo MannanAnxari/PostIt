@@ -1,4 +1,7 @@
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
+import { mongoose } from "mongoose"
+import Like from "./Like"
+
 
 const PostSchema = new mongoose.Schema({
     title: { type: String, required: true },
@@ -6,12 +9,11 @@ const PostSchema = new mongoose.Schema({
     userId: { type: String, required: true },
     likes: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Like'
+        ref: 'User',
     }],
     comments: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Comment',
-
     }],
     user: {
         type: mongoose.Schema.Types.ObjectId,
