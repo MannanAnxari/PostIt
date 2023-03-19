@@ -22,7 +22,6 @@ const HomePage = () => {
   if (error) return error
   if (isLoading) return 'Loading...'
 
-
   return (
     <div>
       <CreatePost />
