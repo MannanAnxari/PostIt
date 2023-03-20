@@ -1,13 +1,17 @@
 'use client';
+import { motion } from "framer-motion"
 
 
 export default function Login({ data, signIn }) {
   console.log(data);
   return (
     <li className='list-none'>
-      <button onClick={() => signIn("google")} className="text-sm bg-gray-700 text-white py-2 px-6 rounded-xl disabled:opacity-25">
+      <motion.button
+        onClick={() => signIn("google")} className="text-sm bg-gray-700 text-white py-2 px-6 rounded-md disabled:opacity-25 hover:bg-gray-600 transition-all active:bg-gray-800"
+        whileTap={{ scale: 0.95 }}
+      >
         sign in
-      </button>
+      </motion.button>
     </li>
   )
 }

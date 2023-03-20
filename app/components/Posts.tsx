@@ -23,8 +23,9 @@ const Posts = ({ avatar, name, postTitle, id, comments, userId, myId, createdAt,
     let toastPostID: string
     const today = new Date()
     const user = useSession();
-
-
+ 
+    console.log(myId);
+    
 
     const { mutate } = useMutation(
         async (data: { postId: string }) => axios.post('/api/posts/likePost', { data }),
@@ -74,9 +75,9 @@ const Posts = ({ avatar, name, postTitle, id, comments, userId, myId, createdAt,
     const postDate = new Date(createdAt).toLocaleString("en-us");
 
     return (
-        <motion.div animate={{ opacity: 1, scale: 1 }}
-            initial={{ opacity: 0, scale: 0.8 }}
-            transition={{ ease: "easeOut" }}
+        <motion.div animate={{ opacity: 1, scale: 1, translateY: 0 }}
+            initial={{ opacity: 0, scale: .8, translateY: 100 }}
+            transition={{ ease: "easeOut", delay: .2 }}
             className="bg-white my-8 p-8 rounded-lg" >
             <div className="flex justify-between items-center gap-2">
                 <div className='flex gap-2 items-center'>
@@ -89,13 +90,21 @@ const Posts = ({ avatar, name, postTitle, id, comments, userId, myId, createdAt,
                 <p className="break-all">{postTitle}</p>
             </div>
             <div className='flex gap-2 cursor-pointer items-center'>
-                <button className="text-center flex gap-2 items-center" onClick={() => handleLike(id)}>
+
+                <motion.button
+                    className="text-center flex gap-2 items-center"
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => handleLike(id)}
+                >
                     <AiFillHeart className={`${likesCount.find(o => o.email === myId) && 'text-red-600'}`} /> {likesCount.length}
-                </button>
+                </motion.button>
                 <Link href={`/post/${id}`}>
-                    <p className='text-sm font-bold text-gray-600 transition-all hover:bg-blue-700 px-6 py-2 rounded-md hover:text-white active:bg-blue-800'>
+                    <motion.button
+                        className='text-sm font-bold text-gray-600 transition-all hover:bg-blue-700 px-6 py-2 rounded-md hover:text-white active:bg-blue-800'
+                        whileTap={{ scale: 0.95 }}
+                    >
                         Comments ({comments?.length > 99 ? '99+' : comments.length})
-                    </p>
+                    </motion.button>
                 </Link>
             </div>
         </motion.div>

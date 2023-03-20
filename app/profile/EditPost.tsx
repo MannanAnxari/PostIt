@@ -38,8 +38,8 @@ export default function EditPost({ avatar, name, title, comments, id, userId, li
     return (
         <>
             <motion.div
-                animate={{ opacity: 1, scale: 1 }}
-                initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1,translateY:0 }}
+              initial={{ opacity: 0, scale: .8, translateY:100 }}
                 transition={{ ease: "easeOut" }}
                 className="bg-white my-8 p-8 rounded-lg " >
                 <div className='flex items-center gap-2'>

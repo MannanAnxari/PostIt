@@ -5,56 +5,60 @@ import axios from "axios";
 import Image from "next/image";
 import AddComment from "../../components/AddComment";
 import Posts from "../../components/Posts";
-import { PostType } from "../../types/Post";
+// import { PostType } from "../../types/Post";
 import { motion } from "framer-motion"
 import { useSession } from "next-auth/react";
 
-const fetchDetails = async (slug: string) => {
+const fetchDetails = async (slug) => {
     const response = await axios.get(`/api/posts/${slug}`);
     return response.data;
 }
 
-type URL = {
-    params: {
-        slug: string
-    }
-}
+// type URL = {
+//     params: {
+//         slug: string
+//     }
+// }
 
-type data = {
-    data: {
-        data: [
-            _id: string,
-            comments: [
+// type data = {
+//     data: {
+//         data: [
+//             _id: string,
+//             comments: [
 
-            ],
-            title: string,
-            user: {
-                image: string,
-                name: string
-            },
+//             ],
+//             title: string,
+//             user: {
+//                 image: string,
+//                 name: string
+//             },
 
-        ]
-    },
-    isLoading: boolean
-}
+//         ]
+//     },
+//     isLoading: boolean
+// }
 
-export default function PostDetail(url: URL) {
+// type PostType = {
+
+// }
+
+export default function PostDetail(url) {
     const user = useSession();
-    const { data, isLoading } = useQuery<PostType[]>({
+    const { data, isLoading } = useQuery({
         queryKey: ['details-posts'],
         queryFn: () => fetchDetails(url.params.slug)
     });
     if (isLoading) return 'loading...'
+    // console.log(data?.data?.likes);
 
     return (
         <div>
-            <Posts comments={data?.data[0]?.comments} key={data?.data[0]?._id} likes={data?.data[0]?.likes} createdAt={data?.data[0]?.createdAt} userId={data?.data[0]?.user?.email} myId={user?.data?.user?.email} avatar={data?.data[0]?.user?.image} id={data?.data[0]?._id} name={data?.data[0]?.user?.name} postTitle={data?.data[0]?.title} />
+            <Posts comments={data?.data?.comments} key={data?.data?._id} likes={data?.data?.likes} createdAt={data?.data?.createdAt} userId={data?.data?.user?.email} myId={user?.data?.user?.email} avatar={data?.data?.user?.image} id={data?.data?._id} name={data?.data?.user?.name} postTitle={data?.data?.title} />
             <motion.div
-                animate={{ opacity: 1, scale: 1 }}
-                initial={{ opacity: 0, scale: 0.8 }}
-                transition={{ ease: "easeOut" }}
-
-            >   <AddComment id={data?.data[0]?._id} />  </motion.div>
+                animate={{ opacity: 1, scale: 1, translateY: 0 }}
+                initial={{ opacity: 0, scale: .8, translateY: 100 }}
+                transition={{ ease: "easeOut", delay: .2 }}
+            >   <AddComment id={data?._id} />  </motion.div>
             {data?.comments.map((item) => {
                 return <motion.div
                     animate={{ opacity: 1, scale: 1 }}

@@ -1,16 +1,28 @@
 export type PostType = {
+
   data: {
-    data: [
-      _id: string,
-      comments: [
-
-      ],
-      title: string,
+    data: {}
+    id: string
+    title: string
+    updatedAt?: string
+    user: {
+      email: string
+      id: string
+      image: string
+      name: string
+    }
+    comments: {
+      createdAt?: string
+      id: string
+      postId: string
+      title: string
+      userId: string
       user: {
-        image: string,
+        email: string
+        id: string
+        image: string
         name: string
-      },
-
-    ]
-  }
+      }
+    }
+  }[]
 }

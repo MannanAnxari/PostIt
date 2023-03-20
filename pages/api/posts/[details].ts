@@ -30,7 +30,7 @@ const handler = async (req, res) => {
             var dta = await Comment.find().where('postId').equals(req.query.details).populate({ path: 'userId', select: ['name', 'email', 'image', 'createdAt'] })
 
 
-            res.status(200).json({ success: true, data, comments: dta })
+            res.status(200).json({ success: true, data:data[0], comments: dta })
 
         } catch (error) {
             console.log(error);

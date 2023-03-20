@@ -4,6 +4,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import React, { useState } from 'react'
 import { toast } from 'react-hot-toast';
+import { motion } from "framer-motion"
 
 
 export default function AddComment({ id }: { id?: string }) {
@@ -45,6 +46,7 @@ export default function AddComment({ id }: { id?: string }) {
     }
 
     return (
+
         <form className='my-8' onSubmit={handleComment}>
             <h3>Add a comment</h3>
             <div className="flex flex-col my-2">
@@ -52,7 +54,12 @@ export default function AddComment({ id }: { id?: string }) {
             </div>
             <div className="flex items-center justify-between gap-2">
                 <p className={`font-mono text-sm ${title.length > 300 ? 'text-red-700' : 'text-black'}`}>{`${title.length}/300`}</p>
-                <button className="text-sm bg-blue-700 rounded-md disabled:opacity-25 text-white transition-all hover:bg-blue-500 px-6 py-2 active:bg-blue-800" type='submit' disabled={isDisabled}>Add Comment 🔥</button>
+                <motion.button
+                    className="text-sm bg-blue-700 rounded-md disabled:opacity-25 text-white transition-all hover:bg-blue-500 px-6 py-2 active:bg-blue-800" type="submit" disabled={isDisabled}
+                    whileTap={{ scale: 0.95 }}
+                >
+                    Add Comment 🔥
+                </motion.button>
             </div>
         </form>
     )
