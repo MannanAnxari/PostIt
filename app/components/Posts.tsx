@@ -76,7 +76,7 @@ const Posts = ({ avatar, name, postTitle, id, comments, userId, myId, createdAt,
 
     return (
         <motion.div animate={{ opacity: 1, scale: 1, translateY: 0 }}
-            initial={{ opacity: 0, scale: .8, translateY: 100 }}
+            initial={{ opacity: 0, scale: .8, translateY: 60 }}
             transition={{ ease: "easeOut", delay: .2 }}
             className="bg-white my-8 p-8 rounded-lg" >
             <div className="flex justify-between items-center gap-2">

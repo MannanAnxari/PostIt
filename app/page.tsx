@@ -5,13 +5,16 @@ import axios from "axios";
 import CreatePost from "./components/AddPost";
 import Posts from "./components/Posts";
 import { useSession } from "next-auth/react";
+
+
 const allPosts = async () => {
   const response = await axios.get('/api/posts/getPost');
   return response.data;
 }
 
 
-const HomePage = () => {
+export default function Home() {
+
   const user = useSession();
 
   const { data, error, isLoading } = useQuery({
@@ -30,4 +33,3 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
