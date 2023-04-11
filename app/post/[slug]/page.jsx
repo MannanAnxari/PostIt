@@ -50,6 +50,7 @@ export default function PostDetail(url) {
     });
     if (isLoading) return 'loading...'
     // console.log(data?.data?.likes);
+ 
 
     return (
         <div>
@@ -58,7 +59,7 @@ export default function PostDetail(url) {
                 animate={{ opacity: 1, scale: 1, translateY: 0 }}
                 initial={{ opacity: 0, scale: .8, translateY: 100 }}
                 transition={{ ease: "easeOut", delay: .2 }}
-            >   <AddComment id={data?._id} />  </motion.div>
+            >   <AddComment id={data?.data?._id} />  </motion.div>
             {data?.comments.map((item) => {
                 return <motion.div
                     animate={{ opacity: 1, scale: 1 }}

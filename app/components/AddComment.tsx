@@ -7,7 +7,7 @@ import { toast } from 'react-hot-toast';
 import { motion } from "framer-motion"
 
 
-export default function AddComment({ id }: { id?: string }) {
+export default function AddComment({ id }) {
     const [title, setTitle] = useState('');
     const [isDisabled, setIsDisabled] = useState(false);
     let toastPostID: string
@@ -44,6 +44,9 @@ export default function AddComment({ id }: { id?: string }) {
         setIsDisabled(true);
         mutate({ title, postId: id })
     }
+
+    console.log(id);
+    
 
     return (
 
