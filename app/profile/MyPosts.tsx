@@ -2,9 +2,6 @@
 
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import CreatePost from "../components/AddPost";
-import Posts from "../components/Posts";
-import { AuthPosts } from "../types/AuthPost";
 import EditPost from "./EditPost";
 
 const fetchAuthPosts = async () => {
@@ -36,10 +33,8 @@ export default function MyPosts() {
     });
 
 
-    if (error) return error
+    if (error) return 'error'
     if (isLoading) return 'Loading...'
-
-
 
     return (
         <>
