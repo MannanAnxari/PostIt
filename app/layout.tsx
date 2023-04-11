@@ -2,7 +2,7 @@
 
 import '../styles/globals.css'
 import Header from "./Header";
-import QueryWrapper from './auth/QuiryWrapper';
+import QueryWrapper from './QueryWrapper';
 
 
 import { SessionProvider } from "next-auth/react";
@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
     <html>
       <body className='mx-4 md:mx-48 xl:mx-96 bg-gray-200'>
         <QueryWrapper>
-          <SessionProvider>
+          <SessionProvider children={''}>
             <Header />
             {children}
           </SessionProvider>

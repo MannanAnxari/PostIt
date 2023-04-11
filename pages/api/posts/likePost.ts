@@ -19,7 +19,7 @@ const handler = async (req, res) => {
         const session: session = await unstable_getServerSession(req, res, authOptions);
 
         if (!session)
-            return res.status(401).json({ success: false, message: 'Please signin to make a post!' });
+            return res.status(401).json({ success: false, message: 'Please signin to like a post!' });
 
 
         const userDB = await users.find({}).where('email').equals(session?.user?.email);
@@ -407,7 +407,7 @@ const handler = async (req, res) => {
             const likez = await posts.find({ _id: postId, likes: userDB[0]?._id })
 
             if (likez?.length) {
-                console.log("if");
+                
 
                 posts.findByIdAndUpdate(postId, {
                     $pull: { likes: userDB[0]?._id }
@@ -421,7 +421,7 @@ const handler = async (req, res) => {
                     }
                 })
             } else {
-                console.log("else");
+                
                 posts.findByIdAndUpdate(postId, {
                     $push: { likes: userDB[0]?._id }
                 }, {

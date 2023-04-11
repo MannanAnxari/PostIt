@@ -7,7 +7,7 @@ import { AiFillHeart } from 'react-icons/ai';
 import axios, { AxiosError } from 'axios';
 import { toast } from 'react-hot-toast';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSession } from "next-auth/react";
 
 
@@ -23,9 +23,9 @@ const Posts = ({ avatar, name, postTitle, id, comments, userId, myId, createdAt,
     let toastPostID: string
     const today = new Date()
     const user = useSession();
- 
+
     console.log(myId);
-    
+
 
     const { mutate } = useMutation(
         async (data: { postId: string }) => axios.post('/api/posts/likePost', { data }),
@@ -96,7 +96,7 @@ const Posts = ({ avatar, name, postTitle, id, comments, userId, myId, createdAt,
                     whileTap={{ scale: 0.95 }}
                     onClick={() => handleLike(id)}
                 >
-                    <AiFillHeart className={`${likesCount.find(o => o.email === myId) && 'text-red-600'}`} /> {likesCount.length}
+                    <AiFillHeart className={likesCount.find(o => o.email === myId) && 'text-red-600'} /> {likesCount.length}
                 </motion.button>
                 <Link href={`/post/${id}`}>
                     <motion.button

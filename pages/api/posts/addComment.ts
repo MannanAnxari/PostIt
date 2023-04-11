@@ -16,7 +16,7 @@ const handler = async (req, res) => {
         const session: session = await unstable_getServerSession(req, res, authOptions);
 
         if (!session)
-            return res.status(401).json({ success: false, message: 'Please signin to make a post!' });
+            return res.status(401).json({ success: false, message: 'Please signin to comment on a post!' });
 
 
         const userDB = await users.find({}).where('email').equals(session?.user?.email);
