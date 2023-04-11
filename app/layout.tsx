@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
     <html>
       <body className='mx-4 md:mx-48 xl:mx-96 bg-gray-200'>
         <QueryWrapper>
-          <SessionProvider children={''}>
+          <SessionProvider  >
             <Header />
             {children}
           </SessionProvider>
