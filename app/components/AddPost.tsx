@@ -58,7 +58,7 @@ const CreatePost = () => {
 
             <form onSubmit={handlePost}>
                 <div className="flex flex-col my-4">
-                    <textarea onChange={(e) => setTitle(e.target.value)} value={title} className={`p-4 text-lg rounded-md my-2 bg-gray-200 outline-2 transition-all ${title.length > 300 ? 'outline-red-600' : 'outline-black'}`} name="title" placeholder="What is in your mind..."> </textarea>
+                    <textarea onChange={(e) => setTitle(e.target.value)} value={title} className={`p-4 text-lg rounded-md my-2 bg-gray-200 outline-2 transition-all ${title.length > 300 ? 'outline-red-600' : 'outline-black'}`} name="title" placeholder="What is in your mind... 🤔"> </textarea>
                 </div>
                 <div className="flex items-center justify-between gap-2">
                     <p className={`font-mono text-sm ${title.length > 300 ? 'text-red-700' : 'text-black'}`}>{`${title.length}/300`}</p>

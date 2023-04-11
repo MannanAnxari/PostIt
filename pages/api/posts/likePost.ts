@@ -407,7 +407,7 @@ const handler = async (req, res) => {
             const likez = await posts.find({ _id: postId, likes: userDB[0]?._id })
 
             if (likez?.length) {
-                
+
 
                 posts.findByIdAndUpdate(postId, {
                     $pull: { likes: userDB[0]?._id }
@@ -418,10 +418,11 @@ const handler = async (req, res) => {
                     else {
 
                         return res.status(200).json({ success: true, isLike: 0 });
+                        
                     }
                 })
             } else {
-                
+
                 posts.findByIdAndUpdate(postId, {
                     $push: { likes: userDB[0]?._id }
                 }, {

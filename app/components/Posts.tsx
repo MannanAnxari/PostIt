@@ -17,14 +17,11 @@ type data = {
 
 const Posts = ({ avatar, name, postTitle, id, comments, userId, myId, createdAt, likes }) => {
 
-    // console.log(userId, myId);
     const [likesCount, setLikesCount] = useState(likes);
     const [isDisabled, setIsDisabled] = useState(false);
     let toastPostID: string
     const today = new Date()
     const user = useSession();
-
-    console.log(myId);
 
 
     const { mutate } = useMutation(
@@ -49,22 +46,9 @@ const Posts = ({ avatar, name, postTitle, id, comments, userId, myId, createdAt,
                         setLikesCount(liks);
                     }
                 }
-                // toast.success("Post has been made 🔥", { id: toastPostID })
             }
         }
     )
-
-
-
-    // useEffect(() => {
-    //     return () => {
-    //         likes.map((item) => {
-    //             console.log(item);
-    //                 setLikesCount({ userId: item.postUserEmail, like: likesCount.like + 1 });
-    //             // console.log(item.isLike);
-    //         });
-    //     }
-    // }, [])
 
 
 

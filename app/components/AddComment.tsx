@@ -23,8 +23,7 @@ export default function AddComment({ id }) {
                 }
                 setIsDisabled(false);
             },
-            onSuccess: (data) => {
-                console.log(data);
+            onSuccess: (data) => { 
 
                 toast.success("Post has been made 🔥", { id: toastPostID })
                 setTitle('');

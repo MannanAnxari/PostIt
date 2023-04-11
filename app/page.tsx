@@ -28,7 +28,7 @@ export default function Home() {
   return (
     <div>
       <CreatePost />
-      {data?.data?.map((post) => <Posts createdAt={post.createdAt} userId={post.user?.email} likes={post.likes} myId={user?.data?.user?.email} comments={post.comments} key={post._id} avatar={post.user?.image} id={post._id} name={post.user?.name} postTitle={post.title} />)}
+      {data?.data?.sort((a, b) => b.likes.length - a.likes.length).map((post) => <Posts createdAt={post.createdAt} userId={post.user?.email} likes={post.likes} myId={user?.data?.user?.email} comments={post.comments} key={post._id} avatar={post.user?.image} id={post._id} name={post.user?.name} postTitle={post.title} />)}
     </div>
   );
 };

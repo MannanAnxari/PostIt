@@ -3,7 +3,7 @@ import { motion } from "framer-motion"
 
 
 export default function Login({ data, signIn }) {
-  console.log(data);
+  
   return (
     <li className='list-none'>
       <motion.button
