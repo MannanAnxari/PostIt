@@ -13,7 +13,7 @@ const allPosts = async () => {
 }
 
 
-export default function Home() {
+export default async function Home() {
 
   const user = useSession();
 
@@ -22,14 +22,15 @@ export default function Home() {
     queryKey: ['posts']
   });
 
-  if (error) return (<p> error</p>)
-  if (isLoading) return (<p> Loading...</p>)
-
-  return (
-    <div>
-      <CreatePost />
-      {data?.data?.map((post) => <Posts createdAt={post.createdAt} userId={post.user?.email} likes={post.likes} myId={user?.data?.user?.email} comments={post.comments} key={post._id} avatar={post.user?.image} id={post._id} name={post.user?.name} postTitle={post.title} />)}
-    </div>
-  );
+  if (error) { return (<p> error</p>) }
+  if (isLoading) { return (<p> Loading...</p>) }
+  else {
+    return (
+      <div>
+        <CreatePost />
+        {data?.data?.map((post) => <Posts createdAt={post.createdAt} userId={post.user?.email} likes={post.likes} myId={user?.data?.user?.email} comments={post.comments} key={post._id} avatar={post.user?.image} id={post._id} name={post.user?.name} postTitle={post.title} />)}
+      </div>
+    );
+  }
 };
 
