@@ -17,7 +17,7 @@ export default async function page() {
     if (!session) {
         redirect('/api/auth/signin');
     }
-    
+
     return (
         <div>
             <h1 className="text-2xl font-bold">

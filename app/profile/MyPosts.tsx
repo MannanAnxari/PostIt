@@ -34,7 +34,9 @@ export default function MyPosts() {
 
 
     if (error) return (<p>Something went wrong!</p>)
+
     if (isLoading) return (<p>Loading...</p>)
+
     else {
         return (
             <>
@@ -44,7 +46,6 @@ export default function MyPosts() {
                         data?.data?.map((post: data) => <EditPost likes={post.likes} comments={post.comments} userId={post.userId} key={post._id} avatar={post.user?.image} id={post._id} name={post.user?.name} title={post.title} />)
                     }
                 </div>
-
             </>
         )
     }
