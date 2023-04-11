@@ -22,8 +22,8 @@ export default function Home() {
     queryKey: ['posts']
   });
 
-  if (error) return error
-  if (isLoading) return 'Loading...'
+  if (error) return (<p> error</p>)
+  if (isLoading) return (<p> Loading...</p>)
 
   return (
     <div>
