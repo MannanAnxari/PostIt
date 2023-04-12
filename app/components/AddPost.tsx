@@ -55,12 +55,19 @@ const CreatePost = () => {
 
         if (!title) {
             seIsDisabled(false);
-            return toast.error('Please don\'t leave it empty!')
+            return toast.error('Please don\'t leave it empty!');
         };
 
         const imgUrls = await uploadImage();
 
-        const imgUrl = imgUrls !== undefined ? imgUrls : null;
+        if (imgUrls.success === false) {
+            seIsDisabled(false);
+            console.log(imgUrls);
+            return toast.error(imgUrls.error);
+
+        }
+
+        const imgUrl = imgUrls.url !== undefined ? imgUrls.url : null;
 
         mutate([title, imgUrl]);
 
@@ -83,11 +90,10 @@ const CreatePost = () => {
                 url: `${CLOUDINARY_URL}/image/upload`,
                 data
             });
-            return response.data.url;
+            return { success: true, url: response.data.url };
         } catch (error) {
-            console.error(error);
-            toast.error('Image not upload successfully! 😑');
-            return 'Something went wrong!';
+            console.log({ success: false, error: error.response.data.error.message });
+            return { success: false, error: error.response.data.error.message };
         }
 
     }
