@@ -17,6 +17,7 @@ type data = {
     ],
     title: string,
     userId: string,
+    image: string,
     user: {
         image: string,
         name: string

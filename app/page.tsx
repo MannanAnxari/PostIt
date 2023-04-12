@@ -12,6 +12,22 @@ const allPosts = async () => {
   return response.data;
 }
 
+type data = {
+  _id: string,
+  comments: [
+
+  ],
+  title: string,
+  userId: string,
+  image: string,
+  createdAt: string,
+  user: {
+    image: string,
+    name: string,
+    email: string,
+  },
+  likes: []
+}
 
 export default function Home() {
 
@@ -28,7 +44,7 @@ export default function Home() {
   return (
     <div>
       <CreatePost />
-      {data?.data?.sort((a, b) => b.likes.length - a.likes.length).map((post) => <Posts createdAt={post.createdAt} userId={post.user?.email} likes={post.likes} image={post.image} myId={user?.data?.user?.email} comments={post.comments} key={post._id} avatar={post.user?.image} id={post._id} name={post.user?.name} postTitle={post.title} />)}
+      {data?.data?.sort((a, b) => b.likes.length - a.likes.length).map((post: data) => <Posts createdAt={post.createdAt} userId={post.user?.email} likes={post.likes} image={post.image} myId={user?.data?.user?.email} comments={post.comments} key={post._id} avatar={post.user?.image} id={post._id} name={post.user?.name} postTitle={post.title} />)}
     </div>
   );
 };
