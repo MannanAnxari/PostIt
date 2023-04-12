@@ -1,5 +1,5 @@
 'use client';
-
+import { TfiDownload } from 'react-icons/tfi';
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from "framer-motion"
@@ -50,7 +50,21 @@ const Posts = ({ avatar, name, postTitle, id, comments, userId, myId, createdAt,
         }
     )
 
-
+    const downloadFile = async (e) => {
+        try {
+            const res = await fetch(e);
+            const blob = await res.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Send It';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     const handleLike = async (id: string) => {
         mutate({ postId: id })
@@ -74,8 +88,10 @@ const Posts = ({ avatar, name, postTitle, id, comments, userId, myId, createdAt,
                 <p className="break-all">{postTitle}</p>
             </div>
             {image &&
-                <div className="my-6 bg-gray-100 rounded-lg">
+                <div className="my-6 bg-gray-100 rounded-lg relative">
                     <Image className='max-h-80 object-contain relative h-full' fill={true} src={image} alt='image' />
+                    <motion.button whileTap={{ scale: 0.9 }} whileHover={{ scale: 1.1 }} className="absolute bottom-6 right-6" onClick={() => downloadFile(image)}><TfiDownload />
+                    </motion.button>
                 </div>
             }
             <div className='flex gap-2 cursor-pointer items-center'>

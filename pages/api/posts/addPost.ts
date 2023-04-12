@@ -33,13 +33,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             return res.status(403).json({ success: false, message: 'Please write a shorter post!' });
 
         if (!title.length)
-            return res.status(403).json({ success: false, message: req.body });
+            return res.status(403).json({ success: false, message: 'Please don\'t leave it empty!' });
 
         // create post
         try {
 
-            const result = new posts({ title: title, user: userDB[0]?._id, userId: userDB[0]?._id, image: imgUrl });
-            
+            const result = new posts({ title: title, user: userDB[0]?._id, userId: userDB[0]?._id, image: imgUrl || null });
+
             result.save();
 
             res.status(200).json({ success: true, result })

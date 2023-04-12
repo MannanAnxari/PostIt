@@ -23,7 +23,7 @@ const CreatePost = () => {
 
     // create post 
     const { mutate } = useMutation(
-        async ([title, imgUrl]: [string, string]) => await axios.post('/api/posts/addPost', { title, imgUrl }), {
+        async ([title, imgUrl]: [any, any]) => await axios.post('/api/posts/addPost', { title, imgUrl }), {
         onError: (error) => {
             console.log(error);
             if (error instanceof AxiosError) {
@@ -52,6 +52,11 @@ const CreatePost = () => {
         e.preventDefault();
 
         seIsDisabled(true);
+
+        if (!title) {
+            seIsDisabled(false);
+            return toast.error('Please don\'t leave it empty!')
+        };
 
         const imgUrls = await uploadImage();
 
@@ -111,7 +116,7 @@ const CreatePost = () => {
                     <div className="flex items-center gap-4">
                         {image &&
                             <div className="relative">
-                                <img src={image} alt="uploaded image" className="w-10 h-10 object-contain" />
+                                <img src={image} alt="uploaded image" className="w-10 h-10 object-contain rounded-md" />
                                 <button type="button" className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black text-white bg-opacity-70 rounded-md opacity-0 w-full h-full flex items-center justify-center text-lg hover:opacity-100 transition-opacity duration-300" onClick={() => { img.current.value = ''; setImage(null); setImageUrl(null) }}><IoCloseOutline /></button>
                             </div>
                         }

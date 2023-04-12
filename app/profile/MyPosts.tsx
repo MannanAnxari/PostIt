@@ -33,7 +33,7 @@ export default function MyPosts() {
         queryKey: ['myposts']
     });
 
-
+   
     if (error) return (<p>Something went wrong!</p>)
 
     if (isLoading) return (<p>Loading...</p>)

@@ -34,6 +34,21 @@ export default function EditPost({ avatar, name, title, comments, id, userId, li
 
     }
 
+    const downloadFile = async (e) => {
+        try {
+            const res = await fetch(e);
+            const blob = await res.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'Send It';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
 
     return (
@@ -54,8 +69,8 @@ export default function EditPost({ avatar, name, title, comments, id, userId, li
                 {image &&
                     <div className="my-6 bg-gray-100 rounded-lg relative">
                         <Image className='max-h-80 object-contain relative h-full' fill={true} src={image} alt='image' />
-                        <div className="absolute bottom-6 right-6"><TfiDownload /></div>
-                        <a href={image} download>Download PDF</a>
+                        <motion.button whileTap={{ scale: 0.9 }} whileHover={{ scale: 1.1 }} className="absolute bottom-6 right-6" onClick={() => downloadFile(image)}><TfiDownload />
+                        </motion.button>
                     </div>
                 }
                 <div className='flex items-center gap-4'>
