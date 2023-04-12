@@ -6,7 +6,7 @@ const nextConfig = {
     esmExternals: true
   },
   images: {
-    domains: ['lh3.googleusercontent.com'],
+    domains: ['lh3.googleusercontent.com', 'res.cloudinary.com'],
   },
   env: {
     DB_URI: "mongodb://localhost:27017/next13-auth",

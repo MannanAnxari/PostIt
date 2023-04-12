@@ -15,7 +15,7 @@ type data = {
     success: Boolean,
 }
 
-const Posts = ({ avatar, name, postTitle, id, comments, userId, myId, createdAt, likes }) => {
+const Posts = ({ avatar, name, postTitle, id, comments, userId, myId, createdAt, likes, image }) => {
 
     const [likesCount, setLikesCount] = useState(likes);
     const [isDisabled, setIsDisabled] = useState(false);
@@ -73,8 +73,12 @@ const Posts = ({ avatar, name, postTitle, id, comments, userId, myId, createdAt,
             <div className='mt-8 mb-6'>
                 <p className="break-all">{postTitle}</p>
             </div>
+            {image &&
+                <div className="my-6 bg-gray-100 rounded-lg">
+                    <Image className='max-h-80 object-contain relative h-full' fill={true} src={image} alt='image' />
+                </div>
+            }
             <div className='flex gap-2 cursor-pointer items-center'>
-
                 <motion.button
                     className="text-center flex gap-2 items-center"
                     whileTap={{ scale: 0.95 }}

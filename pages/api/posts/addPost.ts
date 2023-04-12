@@ -4,21 +4,28 @@ const { default: users } = require("/models/User");
 import { unstable_getServerSession } from "next-auth";
 import Comment from "../../../models/Comment";
 import { authOptions } from "../auth/[...nextauth]";
+import { NextApiRequest, NextApiResponse } from 'next';
+import multer from 'multer';
+
+
 
 type session = {
     user: {
         email: string
     }
 }
-const handler = async (req, res) => {
+
+const upload = multer();
+
+
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (req.method === 'POST') {
         const session: session = await unstable_getServerSession(req, res, authOptions);
 
-        if (!session)
-            return res.status(401).json({ success: false, message: 'Please signin to make a post!' });
+        if (!session) return res.status(401).json({ success: false, message: 'Please signin to make a post!' });
 
-        const { title } = req.body;
+        const { title, imgUrl } = req.body;
 
         const userDB = await users.find({}).where('email').equals(session?.user?.email);
 
@@ -26,12 +33,15 @@ const handler = async (req, res) => {
             return res.status(403).json({ success: false, message: 'Please write a shorter post!' });
 
         if (!title.length)
-            return res.status(403).json({ success: false, message: 'Please dont leave post empty!' });
+            return res.status(403).json({ success: false, message: req.body });
 
-        // create post 
+        // create post
         try {
-            const result = new posts({ title: title, user: userDB[0]?._id, userId: userDB[0]?._id });
+
+            const result = new posts({ title: title, user: userDB[0]?._id, userId: userDB[0]?._id, image: imgUrl });
+            
             result.save();
+
             res.status(200).json({ success: true, result })
 
         } catch (error) {

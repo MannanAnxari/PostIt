@@ -6,8 +6,9 @@ import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import Toggle from './Toggle';
 import { motion } from "framer-motion"
+import { TfiDownload } from 'react-icons/tfi';
 
-export default function EditPost({ avatar, name, title, comments, id, userId, likes }) {
+export default function EditPost({ avatar, name, title, comments, id, userId, likes, image }) {
 
     const [toggle, setToggle] = useState(false);
     let deleteToastId: string;
@@ -38,8 +39,8 @@ export default function EditPost({ avatar, name, title, comments, id, userId, li
     return (
         <>
             <motion.div
-              animate={{ opacity: 1, scale: 1,translateY:0 }}
-              initial={{ opacity: 0, scale: .8, translateY:100 }}
+                animate={{ opacity: 1, scale: 1, translateY: 0 }}
+                initial={{ opacity: 0, scale: .8, translateY: 100 }}
                 transition={{ ease: "easeOut" }}
                 className="bg-white my-8 p-8 rounded-lg " >
                 <div className='flex items-center gap-2'>
@@ -49,7 +50,15 @@ export default function EditPost({ avatar, name, title, comments, id, userId, li
                 </div>
                 <div className='mt-8 mb-6'>
                     <p className="break-all">{title}</p>
-                </div><div className='flex items-center gap-4'>
+                </div>
+                {image &&
+                    <div className="my-6 bg-gray-100 rounded-lg relative">
+                        <Image className='max-h-80 object-contain relative h-full' fill={true} src={image} alt='image' />
+                        <div className="absolute bottom-6 right-6"><TfiDownload /></div>
+                        <a href={image} download>Download PDF</a>
+                    </div>
+                }
+                <div className='flex items-center gap-4'>
                     <p className="text-sm font-bold text-gray-700">
                         Comments ({comments?.length})
                     </p>
