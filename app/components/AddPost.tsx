@@ -64,7 +64,6 @@ const CreatePost = () => {
             seIsDisabled(false);
             console.log(imgUrls);
             return toast.error(imgUrls.error);
-
         }
 
         const imgUrl = imgUrls.url !== undefined ? imgUrls.url : null;
@@ -75,7 +74,7 @@ const CreatePost = () => {
 
     const uploadImage = async () => {
 
-        if (!imageUrl) return;
+        if (!imageUrl) return { success: true };
 
         const data = new FormData();
 
